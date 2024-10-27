@@ -1,0 +1,30 @@
+.contract-badge {
+    display: inline-flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.description {
+    font-size: 19px;
+    margin-bottom: 16px;
+    font-weight: 400;
+}
+
+.contract-badge .description {
+    font-size: 13px;
+    color: #2626268c;
+}
+
+.hero-row {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: row;
+}
+
+.hero-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-left: 36px;
+    align-items: start;
+}

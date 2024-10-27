@@ -1,0 +1,30 @@
+.tab-row {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.tab {
+    align-items: center;
+    background: rgba(38, 38, 38, .08);
+    border-radius: 30px;
+    color: #262626;
+    display: flex;
+    font-weight: 500;
+    font-size: 19px;
+    letter-spacing: -.3px;
+    padding: 8px 16px;
+    transition: all .2s ease-in-out;
+    white-space: nowrap;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.tab:not(.tab-active):hover {
+    background: rgba(38, 38, 38, .16);
+}
+
+.tab-active {
+    background: #262626;
+    color: #FFFFFF;
+}

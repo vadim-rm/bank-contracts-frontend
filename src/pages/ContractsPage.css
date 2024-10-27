@@ -1,0 +1,24 @@
+.search-column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.search-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-container {
+    margin-top: 52px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    justify-content: center;
+}
+
+.search > input {
+    width: 240px;
+}

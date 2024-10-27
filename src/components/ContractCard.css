@@ -1,0 +1,101 @@
+.contract-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 64px;
+}
+
+.image {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    width: 260px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 100%;
+    aspect-ratio: 1;
+    background: #e6e6e6;
+    padding: 32px;
+}
+
+.description-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-size: 36px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.cart-column .title {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+
+.contract-badge {
+    display: inline-flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.description {
+    font-size: 19px;
+    margin-bottom: 16px;
+    font-weight: 400;
+}
+
+.contract-badge .description {
+    font-size: 13px;
+    color: #2626268c;
+}
+
+.digit {
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.buttons-row {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    align-items: center;
+}
+
+.card-button {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color .2s linear;
+}
+
+a {
+    text-decoration: none;
+}
+
+.card-button.primary {
+    background: #428D3A;
+    color: white;
+    padding: 16px 32px;
+    border-radius: 12px;
+}
+
+
+.card-button.secondary {
+    color: #262626C0;
+}
+
+.card-button.secondary:hover {
+    color: #262626EC;
+}
