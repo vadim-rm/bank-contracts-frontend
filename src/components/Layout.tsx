@@ -3,13 +3,14 @@ import Header from "./Header.tsx";
 
 interface Props {
     children?: ReactNode
+    className?: string
 }
 
-const Layout: FC<Props> = ({children}) => {
+const Layout: FC<Props> = ({children, className}) => {
     return (
-        <body>
+        <body className={className}>
         <Header/>
-        <main>
+        <main className={className}>
             {children}
         </main>
         </body>

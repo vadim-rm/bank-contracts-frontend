@@ -1,5 +1,6 @@
 import {FC} from 'react'
 import './Input.css'
+import {Form} from "react-bootstrap";
 
 interface Props {
     value: string
@@ -16,11 +17,13 @@ const Input: FC<Props> = ({placeholder, value, onChange, onSubmit}) => {
     }
 
     return (
-        <input type="text"
-               placeholder={placeholder}
-               value={value}
-               onChange={(event => onChange(event.target.value))}
-               onKeyDown={handleKeyPress}
+        <Form.Control
+            as="input"
+            type="text"
+            placeholder={placeholder}
+            value={value}
+            onChange={(event => onChange(event.target.value))}
+            onKeyDown={handleKeyPress}
         />
     )
 }

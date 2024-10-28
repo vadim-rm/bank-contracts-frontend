@@ -2,6 +2,7 @@ import {FC} from "react";
 import './ContractCard.css'
 import {Link} from "react-router-dom";
 import image from "../assets/defaultImage.png"
+import {Button} from "react-bootstrap";
 
 interface Props {
     id: number
@@ -26,10 +27,10 @@ const ContractCard: FC<Props> = ({id, description, fee, imageUrl, name, imagePos
             </div>
             <div className="buttons-row">
                 <form action="/contracts/{{ $contract.Id }}/add-to-account" method="post">
-                    <button className="card-button primary" type="submit">Оформить</button>
+                    <Button className="card-button primary" type="submit">Оформить</Button>
                 </form>
                 <Link to={`/contracts/${id}`}>
-                    <a className="card-button secondary">Подробнее ›</a>
+                    <Button variant="link" className="card-button secondary">Подробнее ›</Button>
                 </Link>
             </div>
         </div>

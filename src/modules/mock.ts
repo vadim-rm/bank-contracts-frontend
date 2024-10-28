@@ -1,4 +1,5 @@
 import {GetContractsResult} from "./contractsApi.ts";
+import image from "../assets/defaultImage.png"
 
 export const CONTRACTS_MOCK: GetContractsResult = {
     contracts: [
@@ -7,7 +8,7 @@ export const CONTRACTS_MOCK: GetContractsResult = {
             name: "Расчётный счёт",
             fee: 350,
             description: "Договор для выполнения расчётов с другими организациями",
-            imageUrl: "http://localhost:9000/main/2",
+            imageUrl: String(image),
             type: "account"
         },
         {
@@ -15,7 +16,7 @@ export const CONTRACTS_MOCK: GetContractsResult = {
             name: "Эквайринг с терминалом для малого бизнеса",
             fee: 1000,
             description: "Договор для принятия платежей оффлайн",
-            imageUrl: "http://localhost:9000/main/4",
+            imageUrl: String(image),
             type: "acquiring"
         },
     ]

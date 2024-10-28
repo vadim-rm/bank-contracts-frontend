@@ -1,0 +1,21 @@
+
+body.hero {
+    background-image: url(/background.jpeg);
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.6);
+    background-blend-mode: multiply;
+    height: calc(100vh - 0px);
+}
+
+.hero-text {
+    position: absolute;
+    bottom: 40%;
+    padding: 16px;
+    margin: auto;
+    color: white;
+}
+
+.hero-text > p {
+    color: rgba(255, 255, 255, 0.9);
+}
