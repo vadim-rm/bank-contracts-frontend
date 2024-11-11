@@ -12,7 +12,7 @@ import store from "./store.ts";
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <Provider store={store}>
-            <BrowserRouter basename="/bmstu-web-frontend"> {/* RepoName - название вашего репозитория */}
+            <BrowserRouter basename="/bmstu-web-frontend">
                 <Routes>
                     <Route path="/" index element={<HomePage/>}/>
                     <Route path="/contracts" element={<ContractsPage/>}/>
