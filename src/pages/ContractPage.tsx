@@ -41,7 +41,7 @@ const ContractPage: FC = () => {
         {loading && <div className="loadingBg"><Spinner animation="border"/></div>}
         {contract &&
             <div className="hero-row">
-                <img src={contract.imageUrl ?? image} className="image"/>
+                <img src={contract.imageUrl ?? image} className="image all"/>
                 <div className="hero-column">
                     <h2 className="title">{contract.name}</h2>
                     <p className="description">{contract.description}</p>

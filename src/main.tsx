@@ -6,6 +6,8 @@ import ContractsPage from "./pages/ContractsPage.tsx";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {HomePage} from "./pages/HomePage.tsx";
 import ContractPage from "./pages/ContractPage.tsx";
+import {Provider} from "react-redux";
+import store from "./store.ts";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +26,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <RouterProvider router={router}/>
+        <Provider store={store}>
+            <RouterProvider router={router}/>
+        </Provider>
     </StrictMode>,
 )

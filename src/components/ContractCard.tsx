@@ -15,6 +15,7 @@ interface Props {
 
 const ContractCard: FC<Props> = ({id, description, fee, imageUrl, name, imagePosition = "left"}) => (
     <div className="contract-card">
+        <img src={imageUrl ?? image} className="image mobile"/>
         {imagePosition === 'left' && <img src={imageUrl ?? image} className="image"/>}
         <div className="description-column">
             <Link to={`/contracts/${id}`}>

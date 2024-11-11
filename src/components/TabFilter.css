@@ -28,3 +28,10 @@
     background: #262626;
     color: #FFFFFF;
 }
+
+@media (max-width: 460px) {
+    .tab {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+}
