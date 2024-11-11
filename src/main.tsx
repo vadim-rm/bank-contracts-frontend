@@ -3,31 +3,22 @@ import {createRoot} from 'react-dom/client'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 import ContractsPage from "./pages/ContractsPage.tsx";
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {HomePage} from "./pages/HomePage.tsx";
 import ContractPage from "./pages/ContractPage.tsx";
 import {Provider} from "react-redux";
 import store from "./store.ts";
 
-const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <HomePage/>
-    },
-    {
-        path: '/contracts',
-        element: <ContractsPage/>
-    },
-    {
-        path: '/contracts/:id',
-        element: <ContractPage/>
-    }
-])
-
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <Provider store={store}>
-            <RouterProvider router={router}/>
+            <BrowserRouter basename="/bmstu-web-frontend"> {/* RepoName - название вашего репозитория */}
+                <Routes>
+                    <Route path="/" index element={<HomePage/>}/>
+                    <Route path="/contracts" element={<ContractsPage/>}/>
+                    <Route path="/contracts/:id" element={<ContractPage/>}/>
+                </Routes>
+            </BrowserRouter>
         </Provider>
     </StrictMode>,
 )

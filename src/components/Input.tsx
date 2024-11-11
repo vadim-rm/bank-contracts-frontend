@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import {FC, KeyboardEventHandler} from 'react'
 import './Input.css'
 import {Form} from "react-bootstrap";
 
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Input: FC<Props> = ({placeholder, value, onChange, onSubmit}) => {
-    const handleKeyPress = e => {
+    const handleKeyPress: KeyboardEventHandler = (e) => {
         if (e.key === "Enter") {
             onSubmit()
         }

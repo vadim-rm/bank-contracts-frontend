@@ -11,18 +11,18 @@ import {Spinner} from "react-bootstrap";
 import image from "../assets/defaultImage.png";
 
 const ContractPage: FC = () => {
-    const params = useParams<{ id: number }>()
+    const params = useParams<{ id: string }>()
     const [contract, setContract] = useState<Contract | null>(null)
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        getContract(params.id).then((response) => {
+        getContract(parseInt(params.id!)).then((response) => {
             setContract(response)
             setLoading(false)
         })
             .catch(() => {
                 setContract(
-                    CONTRACTS_MOCK.contracts.filter((contract) => contract.id == params.id)[0]
+                    CONTRACTS_MOCK.contracts.filter((contract) => contract.id == parseInt(params.id!))[0]
                 )
                 setLoading(false);
             });
