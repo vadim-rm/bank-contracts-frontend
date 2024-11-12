@@ -11,8 +11,10 @@ export interface GetContractsResult {
     contracts: Contract[]
 }
 
+const baseUrl = "http://localhost:3000"
+
 export const getContracts = async (name = '', type = ''): Promise<GetContractsResult> => {
-    let url = `/api/contracts?contractName=${name}`
+    let url = `${baseUrl}/api/contracts?contractName=${name}`
     if (type !== '') {
         url += `&contractType=${type}`
     }
@@ -21,6 +23,6 @@ export const getContracts = async (name = '', type = ''): Promise<GetContractsRe
 }
 
 export const getContract = async (id: number): Promise<Contract> => {
-    return fetch(`/api/contracts/${id}`)
+    return fetch(`${baseUrl}/api/contracts/${id}`)
         .then((response) => response.json())
 }
