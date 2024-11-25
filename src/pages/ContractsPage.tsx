@@ -4,28 +4,36 @@ import Layout from "../components/Layout.tsx";
 import Input from "../components/Input.tsx";
 import TabFilter from "../components/TabFilter.tsx";
 import {Spinner} from "react-bootstrap";
-import {Contract, getContracts} from "../modules/contractsApi.ts";
 import {CONTRACTS_MOCK} from "../modules/mock.ts";
 import ContractCard from "../components/ContractCard.tsx";
 import {ROUTE_LABELS} from "../Routes.ts";
 import {BreadCrumbs} from "../components/BreadCrumbs.tsx";
 import {setName, setType, useName, useType} from "../slices/filters.ts";
 import {useDispatch} from "react-redux";
+import {api} from "../api";
+import {HandlerContractResponse} from "../api/Api.ts";
+import {useAsyncError} from "../api/useAsyncError.ts";
+import Account from "../components/Account.tsx";
 
 const ContractsPage: FC = () => {
     const type = useType()
     const search = useName()
     const dispatch = useDispatch()
-
+    const throwError = useAsyncError();
 
     const [loading, setLoading] = useState(false)
-    const [contracts, setContracts] = useState<Contract[]>([])
+    const [contracts, setContracts] = useState<HandlerContractResponse[]>([])
+    const [draftCount, setDraftCount] = useState<number | undefined>()
+    const [draftId, setDraftId] = useState<number | undefined>()
 
-    const load = () => {
-        setLoading(true);
-        getContracts(search, type)
+    const load = (force = true) => {
+        if (force) setLoading(true);
+        api.contracts.contractsList({contractName: search, contractType: type !== '' ? type : undefined})
             .then((response) => {
-                setContracts(response.contracts)
+                setContracts(response.data.contracts!)
+                setDraftCount(response.data.account?.count)
+                setDraftId(response.data.account?.id)
+
                 setLoading(false)
             })
             .catch(() => {
@@ -41,6 +49,12 @@ const ContractsPage: FC = () => {
             });
     }
 
+    const addToAccount = (id: number) => {
+        api.contracts.draftCreate(id).then(() => {
+            load(false)
+        }).catch(throwError)
+    }
+
     useEffect(() => {
         load()
     }, [type])
@@ -50,6 +64,7 @@ const ContractsPage: FC = () => {
         <div className="search-column">
             <div className="search-row">
                 <h1>Договоры</h1>
+                <Account accountId={draftId} itemCount={draftCount}/>
             </div>
             <div className="search-row">
                 <TabFilter tabs={[
@@ -80,9 +95,9 @@ const ContractsPage: FC = () => {
 
             {contracts.map((contract, index) => (
                 <ContractCard key={index}
-                              id={contract.id} description={contract.description} fee={contract.fee}
+                              id={contract.id!} description={contract.description!} fee={contract.fee!}
                               imageUrl={contract.imageUrl} imagePosition={index % 2 === 0 ? "right" : "left"}
-                              name={contract.name}/>
+                              name={contract.name!} onAddToAccount={() => addToAccount(contract.id!)}/>
             ))}
         </div>
     </Layout>

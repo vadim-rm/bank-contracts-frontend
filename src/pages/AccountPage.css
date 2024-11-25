@@ -1,0 +1,132 @@
+.account-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 64px;
+}
+
+.image-cart {
+    width: 184px;
+}
+
+.cart-column .title {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.cart-column .buttons-row {
+    justify-content: space-between;
+}
+
+.account-item-badge {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.account-item-badge .description {
+    font-size: 19px;
+    font-weight: 400;
+}
+
+.account-item-badge .description {
+    font-size: 13px;
+    color: #2626268c;
+}
+
+.card-button {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color .2s linear;
+}
+
+.digit {
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.description-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-left: 36px;
+    align-items: center;
+}
+
+.buttons-row {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    align-items: center;
+}
+
+.cart > .buttons-row {
+    margin-bottom: 32px;
+}
+
+.cart {
+    width: 24px;
+    height: 24px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cart-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+hr {
+    border-top: 1px #eeeeee;
+}
+
+.search > input {
+    width: 240px;
+}
+
+input {
+    border-radius: 30px;
+    border: 1px solid #e6e6e6;
+    padding: 0 8px;
+    height: 42px;
+}
+
+.main-badge {
+    background: #428D3A;
+    border-radius: 16px;
+    width: min-content;
+    color: white;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 2px 8px;
+}
+
+input:focus {
+    outline: #d7d7d7;
+    border-color: #d7d7d7;
+    box-shadow: none;
+}
+
+.disabled {
+    cursor: not-allowed !important;
+}
+
+.button-primary.disabled {
+    background-color: #336b2b;
+}
+
+.account-number {
+    margin-bottom: 4px;
+}
+

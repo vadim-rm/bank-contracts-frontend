@@ -1,0 +1,24 @@
+.cart-badge {
+    background: #428D3A;
+    position: relative;
+    display: block;
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
+    top: -40px;
+    left: -10px;
+    text-align: center;
+    border-radius: 100%;
+    color: white;
+}
+
+.cart {
+    width: 24px;
+    height: 24px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cart-disabled {
+    cursor: not-allowed !important;
+}

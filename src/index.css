@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 * {
     margin: 0;
     padding: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     color: #000000;
 }
 
@@ -24,4 +24,29 @@ main {
 
 a {
     text-decoration: none;
+}
+
+.button-primary {
+    background-color: #428d3a;
+    border: 0;
+    color: white;
+    padding: 16px 32px;
+    border-radius: 12px;
+}
+
+.button-compact {
+    padding: 8px 16px;
+    border-radius: 12px;
+}
+
+.button-primary:active {
+    background-color: #30652a;
+}
+
+.button-secondary {
+    color: #262626c0;
+}
+
+.button-secondary:hover {
+    color: #262626ec;
 }

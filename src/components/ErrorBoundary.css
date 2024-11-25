@@ -1,0 +1,40 @@
+.modal-content {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.error-details {
+    margin-top: 20px;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.error-details summary {
+    cursor: pointer;
+    color: #428D3A;
+    font-weight: bold;
+}
+
+.error-details pre {
+    margin-top: 10px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.btn-primary {
+    background-color: #428D3A;
+    border-color: #428D3A;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #357a2f;
+    border-color: #357a2f;
+}
+

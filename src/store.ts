@@ -1,10 +1,11 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit"
 import filtersReducer from "./slices/filters.ts"
+import userReducer from "./slices/user.ts"
 
 
 const rootReducer = combineReducers({
     filters: filtersReducer,
-    // add other reducers here
+    user: userReducer,
 });
 
 export default configureStore({

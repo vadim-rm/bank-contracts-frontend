@@ -29,3 +29,17 @@ a {
 .navbar > .container {
     align-items: end;
 }
+
+.me {
+    color: black;
+}
+
+.logout {
+    margin-left: 4px;
+    color: #6c757d;
+}
+
+.logout:hover {
+    margin-left: 4px;
+    color: black;
+}
