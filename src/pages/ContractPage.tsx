@@ -11,18 +11,18 @@ import {Spinner} from "react-bootstrap";
 import image from "../assets/defaultImage.png";
 
 const ContractPage: FC = () => {
-    const params = useParams<{ id: number }>()
+    const params = useParams<{ id: string }>()
     const [contract, setContract] = useState<Contract | null>(null)
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        getContract(params.id).then((response) => {
+        getContract(parseInt(params.id!)).then((response) => {
             setContract(response)
             setLoading(false)
         })
             .catch(() => {
                 setContract(
-                    CONTRACTS_MOCK.contracts.filter((contract) => contract.id == params.id)[0]
+                    CONTRACTS_MOCK.contracts.filter((contract) => contract.id == parseInt(params.id!))[0]
                 )
                 setLoading(false);
             });
@@ -41,7 +41,7 @@ const ContractPage: FC = () => {
         {loading && <div className="loadingBg"><Spinner animation="border"/></div>}
         {contract &&
             <div className="hero-row">
-                <img src={contract.imageUrl ?? image} className="image"/>
+                <img src={contract.imageUrl ?? image} className="image all"/>
                 <div className="hero-column">
                     <h2 className="title">{contract.name}</h2>
                     <p className="description">{contract.description}</p>

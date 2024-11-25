@@ -4,10 +4,21 @@
     <meta charset="UTF-8"/>
     <link href="/vite.svg" rel="icon" type="image/svg+xml"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="/bmstu-web-frontend/manifest.webmanifest" rel="manifest">
     <title>Банк</title>
 </head>
 <body>
 <div id="root"></div>
 <script src="/src/main.tsx" type="module"></script>
+<script>
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+            navigator.serviceWorker
+                .register("/serviceWorker.js")
+                .then(_ => console.log("service worker registered"))
+                .catch(err => console.log("service worker not registered", err))
+        })
+    }
+</script>
 </body>
 </html>

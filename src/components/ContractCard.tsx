@@ -15,6 +15,7 @@ interface Props {
 
 const ContractCard: FC<Props> = ({id, description, fee, imageUrl, name, imagePosition = "left"}) => (
     <div className="contract-card">
+        <img src={imageUrl ?? image} className="image mobile"/>
         {imagePosition === 'left' && <img src={imageUrl ?? image} className="image"/>}
         <div className="description-column">
             <Link to={`/contracts/${id}`}>
@@ -27,7 +28,7 @@ const ContractCard: FC<Props> = ({id, description, fee, imageUrl, name, imagePos
             </div>
             <div className="buttons-row">
                 <form action="/contracts/{{ $contract.Id }}/add-to-account" method="post">
-                    <Button className="card-button primary" type="submit">Оформить</Button>
+                    <Button className="card-button primary disabled" type="submit">Оформить</Button>
                 </form>
                 <Link to={`/contracts/${id}`}>
                     <Button variant="link" className="card-button secondary">Подробнее ›</Button>

@@ -9,11 +9,14 @@ import {CONTRACTS_MOCK} from "../modules/mock.ts";
 import ContractCard from "../components/ContractCard.tsx";
 import {ROUTE_LABELS} from "../Routes.ts";
 import {BreadCrumbs} from "../components/BreadCrumbs.tsx";
+import {setName, setType, useName, useType} from "../slices/filters.ts";
+import {useDispatch} from "react-redux";
 
 const ContractsPage: FC = () => {
+    const type = useType()
+    const search = useName()
+    const dispatch = useDispatch()
 
-    const [search, setSearch] = useState("")
-    const [type, setType] = useState("")
 
     const [loading, setLoading] = useState(false)
     const [contracts, setContracts] = useState<Contract[]>([])
@@ -30,7 +33,7 @@ const ContractsPage: FC = () => {
                     CONTRACTS_MOCK.contracts.filter((contract) =>
                         contract.name
                             .toLocaleLowerCase()
-                            .startsWith(search.toLocaleLowerCase()) &&
+                            .includes(search.toLocaleLowerCase()) &&
                         (type === '' || contract.type === type)
                     )
                 )
@@ -62,10 +65,10 @@ const ContractsPage: FC = () => {
                         name: "Расчётные счёта",
                         value: "account"
                     }
-                ]} onChange={(value) => setType(value)} value={type}/>
+                ]} onChange={(value) => dispatch(setType(value))} value={type}/>
                 <Input
                     value={search}
-                    onChange={(value) => setSearch(value)}
+                    onChange={(value) => dispatch(setName(value))}
                     placeholder="Поиск"
                     onSubmit={load}/>
             </div>

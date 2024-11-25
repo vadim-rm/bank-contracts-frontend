@@ -5,6 +5,14 @@
     gap: 64px;
 }
 
+.image.mobile {
+    display: none;
+}
+
+.image.all {
+    display: block;
+}
+
 .image {
     display: block;
     align-items: center;
@@ -103,4 +111,42 @@ a {
 
 .card-button.secondary:hover {
     color: #262626EC;
+}
+
+
+@media (max-width: 460px) {
+    .contract-card {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .image {
+        display: none;
+    }
+
+    .image.mobile {
+        display: block !important;
+        margin: auto;
+    }
+
+    .contract-badge {
+        margin-bottom: 8px !important;
+    }
+
+    .buttons-row {
+        width: 100%;
+    }
+
+    .buttons-row > form, a {
+        display: flex;
+        flex: 1;
+    }
+
+    .card-button {
+        width: 100%;
+    }
 }

@@ -28,3 +28,18 @@
     margin-left: 36px;
     align-items: start;
 }
+
+@media (max-width: 460px) {
+    .hero-row > .image {
+        margin: 16px auto;
+        padding-bottom: 16px;
+    }
+
+    .hero-row {
+        flex-direction: column;
+    }
+
+    .hero-column {
+        margin-left: 0;
+    }
+}

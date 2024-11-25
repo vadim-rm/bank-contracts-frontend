@@ -1,0 +1,21 @@
+{
+  "name": "Банковские договоры",
+  "short_name": "Банк",
+  "start_url": "/bmstu-web-frontend",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#00C853",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
