@@ -1,14 +1,15 @@
-import {FC, ReactNode} from "react";
+import {CSSProperties, FC, ReactNode} from "react";
 import Header from "./Header.tsx";
 
 interface Props {
     children?: ReactNode
     className?: string
+    style?: CSSProperties
 }
 
-const Layout: FC<Props> = ({children, className}) => {
+const Layout: FC<Props> = ({children, className, style}) => {
     return (
-        <body className={className}>
+        <body className={className} style={style}>
         <Header/>
         <main className={className}>
             {children}

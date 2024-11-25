@@ -7,6 +7,7 @@ import {useAsyncError} from "../api/useAsyncError.ts";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {setIsModerator, setLogin} from "../slices/user.ts";
+import background from "../assets/background.jpeg";
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -37,7 +38,7 @@ const LoginPage = () => {
     };
 
     return (
-        <Layout className="auth-page">
+        <Layout className="auth-page" style={{backgroundImage: `url(${background})`}}>
             <AuthForm title="Вход" buttonText="Войти" onSubmit={handleSubmit} loading={loading}/>
         </Layout>
     );
