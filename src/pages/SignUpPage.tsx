@@ -5,6 +5,7 @@ import {api} from "../api";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../Routes.ts";
 import {useAsyncError} from "../api/useAsyncError.ts";
+import background from "../assets/background.jpeg";
 
 const SignUpPage = () => {
     const navigate = useNavigate();
@@ -29,7 +30,7 @@ const SignUpPage = () => {
     };
 
     return (
-        <Layout className="auth-page">
+        <Layout className="auth-page" style={{backgroundImage: `url(${background})`}}>
             <AuthForm
                 title="Регистрация"
                 buttonText="Зарегистрироваться"
