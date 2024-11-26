@@ -32,7 +32,7 @@ const AccountPage: FC = () => {
             setStatus(response.data.status!)
             setLoading(false)
         })
-    }, [params.id])
+    }, [id])
 
     const onClear = () => {
         if (submitting) return;
@@ -62,11 +62,9 @@ const AccountPage: FC = () => {
     const onSubmit = () => {
         if (submitting) return;
         setSubmitting(true);
-        api.accounts.submitUpdate(id).then(() => {
-            api.accounts.accountsDetail(id).then((response) => {
-                setStatus(response.data.status!)
-                setMessage("Заявка на счёт успешно отправлена")
-            })
+        api.accounts.submitUpdate(id).then((response) => {
+            setStatus(response.data.status!)
+            setMessage("Заявка на счёт успешно отправлена")
             setSubmitting(false)
         }).catch((r) => {
             throwError(r)
