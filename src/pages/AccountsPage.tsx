@@ -1,5 +1,5 @@
 import Layout from "../components/Layout.tsx";
-import {FC, useEffect, useState} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 import {ROUTE_LABELS} from "../Routes.ts";
 import {BreadCrumbs} from "../components/BreadCrumbs.tsx";
 import {Form, Spinner, Table} from "react-bootstrap";
@@ -8,16 +8,19 @@ import {api} from "../api";
 import {Link} from "react-router-dom";
 import {accountStatuses} from "../api/constants.ts";
 import "./AccountsPage.css"
+import {useIsModerator} from "../slices/user.ts";
 
 const AccountsPage: FC = () => {
+    const isModerator = useIsModerator()
+
     const [accounts, setAccounts] = useState<HandlerGetAccountsListAccount[]>([])
     const [status, setStatus] = useState("any")
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [startDate, setStartDate] = useState<Date | null>(null)
     const [endDate, setEndDate] = useState<Date | null>(null)
+    const [creator, setCreator] = useState<string>('')
 
-    useEffect(() => {
-        setLoading(true)
+    const load = useCallback(() => {
         api.accounts.accountsList({
             status: status === "any" ? undefined : status,
             from: startDate?.toISOString(),
@@ -26,6 +29,24 @@ const AccountsPage: FC = () => {
             setAccounts(response.data.accounts!)
         }).finally(() => setLoading(false))
     }, [endDate, startDate, status])
+
+    useEffect(() => {
+        load()
+        const id = setTimeout(load, 2000);
+        return () => clearTimeout(id);
+    }, [load])
+
+    const filterAccounts = () => accounts.filter((account) =>
+        account.creator!.toLowerCase().includes(creator.toLowerCase()))
+
+
+    const changeStatus = (id: number, status: string) => {
+        api.accounts.completeUpdate(id, {
+            status: status
+        }).then(() => {
+            load()
+        })
+    }
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString)
@@ -58,6 +79,12 @@ const AccountsPage: FC = () => {
                                   type="date"
                                   onChange={(e) => setEndDate(new Date(e.target.value))}/>
                 </div>
+                <div className="filter">
+                    <p className="filter-label">Создатель</p>
+                    <Form.Control className="filter-control"
+                                  type="input"
+                                  onChange={(e) => setCreator(e.target.value)}/>
+                </div>
             </div>
             {loading && <div className="loadingBg"><Spinner animation="border"/></div>}
             {!loading && accounts.length === 0 && <div>Нет заявок на счета</div>}
@@ -71,11 +98,11 @@ const AccountsPage: FC = () => {
                         <th>Дата создания</th>
                         <th>Дата подачи</th>
                         <th>Ежемесячный платеж</th>
-                        <th/>
+                        <th colSpan={isModerator ? 3 : 1}>Действия</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {accounts.map((account, index) => (
+                    {filterAccounts().map((account, index) => (
                         <tr key={index}>
                             <td>{account.id}</td>
                             <td>{account.creator}</td>
@@ -83,7 +110,19 @@ const AccountsPage: FC = () => {
                             <td>{formatDate(account.createdAt!)}</td>
                             <td>{formatDate(account.requestedAt!)}</td>
                             <td>{account.totalFee}</td>
-                            <td><Link to={`/accounts/${account.id}`}>Открыть</Link></td>
+                            <td colSpan={isModerator && account.status === 'applied' ? 1 : 3}>
+                                <Link to={`/accounts/${account.id}`}>Открыть</Link>
+                            </td>
+                            {(isModerator && account.status === 'applied') &&
+                                <>
+                                    <td>
+                                        <Link onClick={() => changeStatus(account.id!, 'rejected')}>Отклонить</Link>
+                                    </td>
+                                    <td>
+                                        <Link onClick={() => changeStatus(account.id!, 'finalized')}>Выполнить</Link>
+                                    </td>
+                                </>
+                            }
                         </tr>
                     ))}
                     </tbody>
