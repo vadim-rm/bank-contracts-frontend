@@ -497,12 +497,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     contractsUpdate: (id: number, request: HandlerUpdateRequest, params: RequestParams = {}) =>
-      this.request<void, HandlerErrorResponse>({
+      this.request<HandlerContractResponse, HandlerErrorResponse>({
         path: `/contracts/${id}`,
         method: "PUT",
         body: request,
         secure: true,
         type: ContentType.Json,
+        format: "json",
         ...params,
       }),
 
@@ -559,12 +560,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<void, HandlerErrorResponse>({
+      this.request<HandlerContractResponse, HandlerErrorResponse>({
         path: `/contracts/${id}/image`,
         method: "PUT",
         body: data,
         secure: true,
         type: ContentType.FormData,
+        format: "json",
         ...params,
       }),
   };

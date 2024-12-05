@@ -17,3 +17,12 @@ textarea.form-control:focus {
     border-color: #d7d7d7;
     box-shadow: none;
 }
+
+.image-upload {
+    margin-top: 1rem;
+}
+
+input[type="file"]::file-selector-button {
+    padding-top: 10px;
+    height: 46px;
+}

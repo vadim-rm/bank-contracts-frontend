@@ -1,4 +1,4 @@
-import {FC, FormEvent, useEffect, useState} from "react";
+import {ChangeEvent, FC, FormEvent, useEffect, useState} from "react";
 import Layout from "../components/Layout.tsx";
 import {BreadCrumbs} from "../components/BreadCrumbs.tsx";
 import {Button, Form} from "react-bootstrap";
@@ -6,6 +6,7 @@ import "./ContractEditPage.css";
 import {api} from "../api";
 import {useNavigate, useParams} from "react-router-dom";
 import {ROUTE_LABELS, ROUTES} from "../Routes.ts";
+import image from "../assets/defaultImage.png";
 
 const ContractEditPage: FC = () => {
     const navigate = useNavigate()
@@ -17,6 +18,7 @@ const ContractEditPage: FC = () => {
     const [name, setName] = useState<string | undefined>()
     const [description, setDescription] = useState<string | undefined>()
     const [fee, setFee] = useState<number | undefined>()
+    const [imageUrl, setImageUrl] = useState<string | undefined>()
 
     const load = () => {
         if (!id) return
@@ -24,6 +26,7 @@ const ContractEditPage: FC = () => {
             setName(response.data.name!)
             setDescription(response.data.description!)
             setFee(response.data.fee!)
+            setImageUrl(response.data.imageUrl)
         }).finally(() => setLoading(false))
     }
 
@@ -44,13 +47,29 @@ const ContractEditPage: FC = () => {
                 setMessage("Договор успешно сохранен")
             })
         }
-        api.contracts.contractsUpdate(parseInt(id), {
+        api.contracts.contractsUpdate(parseInt(id!), {
             name: name,
             description: description,
             fee: fee,
-        }).then(() => {
+        }).then((response) => {
+            setName(response.data.name!)
+            setDescription(response.data.description!)
+            setFee(response.data.fee!)
+            setImageUrl(response.data.imageUrl)
             setMessage("Договор успешно сохранен")
         }).finally(() => setLoading(false))
+    }
+
+    const onImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return
+
+        api.contracts.imageUpdate(parseInt(id!), {image: file}).then((response) => {
+            setName(response.data.name!)
+            setDescription(response.data.description!)
+            setFee(response.data.fee!)
+            setImageUrl(response.data.imageUrl)
+        })
     }
 
     return <Layout>
@@ -60,6 +79,14 @@ const ContractEditPage: FC = () => {
         }, {label: name ?? "Создать договор"}]}/>
         <Form className="edit-contract-form" onSubmit={onSubmit}>
             <Form.Group>
+                <Form.Label>Фото</Form.Label>
+                <img src={imageUrl ?? image} className="image"/>
+                {id && <Form.Control
+                    type="file"
+                    accept="image/png, image/jpeg"
+                    className="image-upload"
+                    onChange={onImageChange}
+                />}
                 <Form.Label>Название</Form.Label>
                 <Form.Control required
                               value={name} onChange={(e) => setName(e.target.value)}/>
