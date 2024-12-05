@@ -66,19 +66,23 @@ const AccountsPage: FC = () => {
                     <thead>
                     <tr>
                         <th>#</th>
+                        <th>Создатель</th>
                         <th>Статус</th>
                         <th>Дата создания</th>
                         <th>Дата подачи</th>
-                        <th></th>
+                        <th>Ежемесячный платеж</th>
+                        <th/>
                     </tr>
                     </thead>
                     <tbody>
                     {accounts.map((account, index) => (
                         <tr key={index}>
                             <td>{account.id}</td>
+                            <td>{account.creator}</td>
                             <td>{accountStatuses[account.status!]}</td>
                             <td>{formatDate(account.createdAt!)}</td>
                             <td>{formatDate(account.requestedAt!)}</td>
+                            <td>{account.totalFee}</td>
                             <td><Link to={`/accounts/${account.id}`}>Открыть</Link></td>
                         </tr>
                     ))}
