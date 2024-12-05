@@ -1,0 +1,16 @@
+.error-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    gap: 30px;
+}
+
+.error-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    padding: 10px;
+    background-color: #f8f9fa;
+}
