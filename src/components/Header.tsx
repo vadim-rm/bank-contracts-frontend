@@ -2,7 +2,7 @@ import {FC, MouseEventHandler} from 'react'
 import './Header.css'
 import {Container, Nav, Navbar} from "react-bootstrap";
 import {Link, useNavigate} from "react-router-dom";
-import {setIsModerator, setLogin, useIsAuthenticated, useLogin} from "../slices/user.ts";
+import {setIsModerator, setLogin, useIsAuthenticated, useIsModerator, useLogin} from "../slices/user.ts";
 import {useDispatch} from "react-redux";
 import {setName, setType} from "../slices/filters.ts";
 import {ROUTES} from "../Routes.ts";
@@ -11,6 +11,7 @@ import {useAsyncError} from "../api/useAsyncError.ts";
 
 const Header: FC = () => {
     const authenticated = useIsAuthenticated()
+    const isModerator = useIsModerator()
     const login = useLogin()
     const dispatch = useDispatch()
     const navigate = useNavigate();
@@ -41,6 +42,8 @@ const Header: FC = () => {
                         <Nav className="me-auto" style={{flex: 1}}>
                             <Link to="/contracts" className="nav-link">Договоры</Link>
                             {authenticated && <Link to="/accounts" className="nav-link">Заявки на счета</Link>}
+                            {isModerator &&
+                                <Link to="/contracts/list" className="nav-link">Управление договорами</Link>}
                         </Nav>
                         <Nav className="me-auto">
                             {login ? <Link to="/me" className="nav-link me">{login}

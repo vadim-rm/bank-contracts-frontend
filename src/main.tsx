@@ -15,6 +15,7 @@ import AccountPage from "./pages/AccountPage.tsx";
 import AccountsPage from "./pages/AccountsPage.tsx";
 import MePage from "./pages/MePage.tsx";
 import ContractsListPage from "./pages/ContractsListPage.tsx";
+import ContractEditPage from "./pages/ContractEditPage.tsx";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -26,6 +27,8 @@ createRoot(document.getElementById("root")!).render(
                         <Route path="/contracts" element={<ContractsPage/>}/>
                         <Route path="/contracts/list" element={<ContractsListPage/>}/>
                         <Route path="/contracts/:id" element={<ContractPage/>}/>
+                        <Route path="/contracts/:id/edit" element={<ContractEditPage/>}/>
+                        <Route path="/contracts/create" element={<ContractEditPage/>}/>
                         <Route path="/accounts/:id" element={<AccountPage/>}/>
                         <Route path="/accounts" element={<AccountsPage/>}/>
                         <Route path="/login" element={<LoginPage/>}/>

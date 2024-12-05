@@ -2,14 +2,15 @@ import Layout from "../components/Layout.tsx";
 import {FC, useEffect, useState} from "react";
 import {ROUTE_LABELS} from "../Routes.ts";
 import {BreadCrumbs} from "../components/BreadCrumbs.tsx";
-import {Spinner, Table} from "react-bootstrap";
+import {Button, Spinner, Table} from "react-bootstrap";
 import {HandlerContractResponse} from "../api/Api.ts";
 import {api} from "../api";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import "./AccountsPage.css"
 import Input from "../components/Input.tsx";
 
 const ContractsListPage: FC = () => {
+    const navigate = useNavigate()
     const [contracts, setContracts] = useState<HandlerContractResponse[]>([])
     const [loading, setLoading] = useState(true)
     const [name, setName] = useState('')
@@ -36,7 +37,7 @@ const ContractsListPage: FC = () => {
 
     return (
         <Layout>
-            <BreadCrumbs crumbs={[{label: ROUTE_LABELS.CONTRACTS}]}/>
+            <BreadCrumbs crumbs={[{label: ROUTE_LABELS.CONTRACTS_MANAGEMENT}]}/>
             <div className="filters-row">
                 <div className="filter">
                     <p className="filter-label">Название</p>
@@ -72,6 +73,14 @@ const ContractsListPage: FC = () => {
                     ))}
                     </tbody>
                 </Table>}
+            <Button
+                variant="primary"
+                type="submit"
+                className={`button-primary button-compact ${loading && "disabled"}`}
+                onClick={() => navigate("/contracts/create")}
+            >
+                Добавить договор
+            </Button>
         </Layout>
     )
 }

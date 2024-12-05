@@ -34,6 +34,10 @@ a {
     border-radius: 12px;
 }
 
+.button-primary:active {
+    background-color: #346e2d !important;
+}
+
 .button-compact {
     padding: 8px 16px;
     border-radius: 12px;
