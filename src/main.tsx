@@ -14,6 +14,7 @@ import ErrorBoundary from "./components/ErrorBoundary.tsx";
 import AccountPage from "./pages/AccountPage.tsx";
 import AccountsPage from "./pages/AccountsPage.tsx";
 import MePage from "./pages/MePage.tsx";
+import ContractsListPage from "./pages/ContractsListPage.tsx";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -23,6 +24,7 @@ createRoot(document.getElementById("root")!).render(
                     <Routes>
                         <Route path="/" index element={<HomePage/>}/>
                         <Route path="/contracts" element={<ContractsPage/>}/>
+                        <Route path="/contracts/list" element={<ContractsListPage/>}/>
                         <Route path="/contracts/:id" element={<ContractPage/>}/>
                         <Route path="/accounts/:id" element={<AccountPage/>}/>
                         <Route path="/accounts" element={<AccountsPage/>}/>
