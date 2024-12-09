@@ -55,10 +55,10 @@ const AccountCard: FC<Props> = ({
                     <p className="description">ежемесячный платеж</p>
                 </div>}
 
-                <div className="account-item-badge">
+                {isModerator && <div className="account-item-badge">
                     <p className="digit">{creator}</p>
                     <p className="description">создатель</p>
-                </div>
+                </div>}
             </div>
             <div className="buttons-row">
                 <Link to={`/accounts/${id}`} className="card-button secondary">

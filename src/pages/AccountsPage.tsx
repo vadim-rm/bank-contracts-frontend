@@ -7,8 +7,10 @@ import {HandlerGetAccountsListAccount} from "../api/Api.ts";
 import {api} from "../api";
 import "./AccountsPage.css"
 import AccountCard from "../components/AccountCard.tsx";
+import {useIsModerator} from "../slices/user.ts";
 
 const AccountsPage: FC = () => {
+    const isModerator = useIsModerator()
     const [accounts, setAccounts] = useState<HandlerGetAccountsListAccount[]>([])
     const [status, setStatus] = useState("any")
     const [loading, setLoading] = useState(true)
@@ -69,12 +71,12 @@ const AccountsPage: FC = () => {
                                   type="date"
                                   onChange={(e) => setEndDate(new Date(e.target.value))}/>
                 </div>
-                <div className="filter">
+                {isModerator && <div className="filter">
                     <p className="filter-label">Создатель</p>
                     <Form.Control className="filter-control"
                                   type="input"
                                   onChange={(e) => setCreator(e.target.value)}/>
-                </div>
+                </div>}
             </div>
             {loading && <div className="loadingBg"><Spinner animation="border"/></div>}
             {!loading && accounts.length === 0 && <div>Нет заявок на счета</div>}

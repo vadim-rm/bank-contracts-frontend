@@ -7,7 +7,7 @@ interface CartProps {
 }
 
 const Cart: React.FC<CartProps> = ({accountId, itemCount}) => {
-    const enabled = accountId && itemCount;
+    const enabled = !!accountId && !!itemCount;
     return (
         <Link className={`cart ${!enabled ? "cart-disabled" : ""}`}
               to={enabled ? `/accounts/${accountId}` : ""}>

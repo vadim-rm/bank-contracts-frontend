@@ -19,6 +19,7 @@ const ContractEditPage: FC = () => {
     const [description, setDescription] = useState<string | undefined>()
     const [fee, setFee] = useState<number | undefined>()
     const [imageUrl, setImageUrl] = useState<string | undefined>()
+    const [type, setType] = useState<string | undefined>()
 
     const load = () => {
         if (!id) return
@@ -27,6 +28,7 @@ const ContractEditPage: FC = () => {
             setDescription(response.data.description!)
             setFee(response.data.fee!)
             setImageUrl(response.data.imageUrl)
+            setType(response.data.type)
         }).finally(() => setLoading(false))
     }
 
@@ -42,6 +44,7 @@ const ContractEditPage: FC = () => {
                 name: name,
                 description: description,
                 fee: fee,
+                type: type,
             }).then((response) => {
                 navigate(`/contracts/${response.data.id}/edit`)
                 setMessage("Договор успешно сохранен")
@@ -51,11 +54,13 @@ const ContractEditPage: FC = () => {
             name: name,
             description: description,
             fee: fee,
+            type: type,
         }).then((response) => {
             setName(response.data.name!)
             setDescription(response.data.description!)
             setFee(response.data.fee!)
             setImageUrl(response.data.imageUrl)
+            setType(response.data.type)
             setMessage("Договор успешно сохранен")
         }).finally(() => setLoading(false))
     }
@@ -69,6 +74,7 @@ const ContractEditPage: FC = () => {
             setDescription(response.data.description!)
             setFee(response.data.fee!)
             setImageUrl(response.data.imageUrl)
+            setType(response.data.type)
         })
     }
 
@@ -90,6 +96,13 @@ const ContractEditPage: FC = () => {
                 <Form.Label>Название</Form.Label>
                 <Form.Control required
                               value={name} onChange={(e) => setName(e.target.value)}/>
+                <Form.Label>Тип</Form.Label>
+                <Form.Select className="filter-control"
+                             onChange={(e) => setType(e.target.value)}>
+                    <option disabled>Выберите тип</option>
+                    <option value="acquiring">Эквайринг</option>
+                    <option value="account">Расчётные счёта</option>
+                </Form.Select>
                 <Form.Label>Описание</Form.Label>
                 <Form.Control required as="textarea"
                               value={description} onChange={(e) => setDescription(e.target.value)}/>

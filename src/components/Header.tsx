@@ -4,7 +4,7 @@ import {Container, Nav, Navbar} from "react-bootstrap";
 import {Link, useNavigate} from "react-router-dom";
 import {setIsModerator, setLogin, useIsAuthenticated, useIsModerator, useLogin} from "../slices/user.ts";
 import {useDispatch} from "react-redux";
-import {setName, setType} from "../slices/filters.ts";
+import {setName, setType} from "../slices/contracts.ts";
 import {ROUTES} from "../Routes.ts";
 import {api} from "../api";
 import {useAsyncError} from "../api/useAsyncError.ts";
