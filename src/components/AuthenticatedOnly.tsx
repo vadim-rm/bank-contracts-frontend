@@ -1,7 +1,12 @@
 import {useIsAuthenticated} from "../slices/user.ts";
 import {Navigate, Outlet} from "react-router-dom";
+import {FC, ReactNode} from "react";
 
-const AuthenticatedOnly = ({children}) => {
+interface Props {
+    children?: ReactNode
+}
+
+const AuthenticatedOnly: FC<Props> = ({children}) => {
     const authenticated = useIsAuthenticated()
 
     if (!authenticated) {

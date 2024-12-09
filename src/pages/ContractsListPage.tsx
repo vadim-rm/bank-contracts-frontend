@@ -41,9 +41,7 @@ const ContractsListPage: FC = () => {
             <div className="filters-row">
                 <div className="filter">
                     <p className="filter-label">Название</p>
-                    <Input className="filter-control"
-                           type="input"
-                           onChange={setName}
+                    <Input onChange={setName}
                            value={name}
                            onSubmit={load}
                     />
@@ -68,7 +66,7 @@ const ContractsListPage: FC = () => {
                             <td>{contract.name}</td>
                             <td>{contract.fee}</td>
                             <td><Link to={`/contracts/${contract.id}/edit`}>Редактировать</Link></td>
-                            <td><Link onClick={() => deleteContract(contract.id!)}>Удалить</Link></td>
+                            <td><Link to="#" onClick={() => deleteContract(contract.id!)}>Удалить</Link></td>
                         </tr>
                     ))}
                     </tbody>

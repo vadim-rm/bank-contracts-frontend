@@ -67,10 +67,10 @@ const AccountCard: FC<Props> = ({
                 {(isModerator && status === 'applied') &&
                     <>
                         <td>
-                            <Link onClick={() => onChangeStatus(id!, 'rejected')}>Отклонить</Link>
+                            <Link to="#" onClick={() => onChangeStatus(id!, 'rejected')}>Отклонить</Link>
                         </td>
                         <td>
-                            <Link onClick={() => onChangeStatus(id!, 'finalized')}>Выполнить</Link>
+                            <Link to="#" onClick={() => onChangeStatus(id!, 'finalized')}>Выполнить</Link>
                         </td>
                     </>}
             </div>

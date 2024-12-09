@@ -1,7 +1,12 @@
 import {useIsModerator} from "../slices/user.ts";
 import {Navigate, Outlet} from "react-router-dom";
+import {FC, ReactNode} from "react";
 
-const ModeratorOnly = ({children}) => {
+interface Props {
+    children?: ReactNode
+}
+
+const ModeratorOnly: FC<Props> = ({children}) => {
     const isModerator = useIsModerator()
 
     if (!isModerator) {
