@@ -1,7 +1,7 @@
 {
   "name": "Банковские договоры",
   "short_name": "Банк",
-  "start_url": "/bmstu-web-frontend",
+  "start_url": "/bank-contracts-frontend",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#00C853",

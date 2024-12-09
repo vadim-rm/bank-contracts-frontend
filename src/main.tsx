@@ -23,7 +23,7 @@ import AuthenticatedOnly from "./components/AuthenticatedOnly.tsx";
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <Provider store={store}>
-            <BrowserRouter basename="/bmstu-web-frontend">
+            <BrowserRouter basename="/bank-contracts-frontend">
                 <ErrorBoundary>
                     <Routes>
                         <Route path="/" index element={<HomePage/>}/>
