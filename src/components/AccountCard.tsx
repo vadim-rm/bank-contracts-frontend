@@ -50,10 +50,10 @@ const AccountCard: FC<Props> = ({
                     <p className="description">дата подачи</p>
                 </div>
 
-                <div className="account-item-badge">
+                {totalFee && <div className="account-item-badge">
                     <p className="digit">{totalFee} ₽</p>
                     <p className="description">ежемесячный платеж</p>
-                </div>
+                </div>}
 
                 <div className="account-item-badge">
                     <p className="digit">{creator}</p>
