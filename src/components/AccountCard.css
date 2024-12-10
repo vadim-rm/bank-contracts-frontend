@@ -35,3 +35,8 @@
     border-bottom: 1px #eeeeee solid;
     margin-bottom: 24px;
 }
+
+.buttons-row.account-card-buttons {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}

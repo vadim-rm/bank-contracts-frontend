@@ -55,7 +55,7 @@ const contracts = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchContracts.fulfilled, (state, {payload}) => {
+        builder.addCase(fetchContracts.fulfilled, (_, {payload}) => {
             return payload
         })
     },

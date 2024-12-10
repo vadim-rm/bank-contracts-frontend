@@ -20,6 +20,7 @@ const ContractEditPage: FC = () => {
     const [fee, setFee] = useState<number | undefined>()
     const [imageUrl, setImageUrl] = useState<string | undefined>()
     const [type, setType] = useState<string | undefined>()
+    const [file, setFile] = useState<File | undefined>()
 
     const load = () => {
         if (!id) return
@@ -45,7 +46,12 @@ const ContractEditPage: FC = () => {
                 description: description,
                 fee: fee,
                 type: type,
-            }).then((response) => {
+            }).then(async (response) => {
+                if (file) {
+                    const img = await api.contracts.imageUpdate(response.data.id!, {image: file})
+                    setImageUrl(img.data.imageUrl)
+                }
+
                 navigate(`/contracts/${response.data.id}/edit`)
                 setMessage("Договор успешно сохранен")
             })
@@ -55,7 +61,7 @@ const ContractEditPage: FC = () => {
             description: description,
             fee: fee,
             type: type,
-        }).then((response) => {
+        }).then(async (response) => {
             setName(response.data.name!)
             setDescription(response.data.description!)
             setFee(response.data.fee!)
@@ -68,14 +74,16 @@ const ContractEditPage: FC = () => {
     const onImageChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
         if (!file) return
+        setFile(file)
 
-        api.contracts.imageUpdate(parseInt(id!), {image: file}).then((response) => {
-            setName(response.data.name!)
-            setDescription(response.data.description!)
-            setFee(response.data.fee!)
-            setImageUrl(response.data.imageUrl)
-            setType(response.data.type)
-        })
+        if (id)
+            api.contracts.imageUpdate(parseInt(id!), {image: file}).then((response) => {
+                setName(response.data.name!)
+                setDescription(response.data.description!)
+                setFee(response.data.fee!)
+                setImageUrl(response.data.imageUrl)
+                setType(response.data.type)
+            })
     }
 
     return <Layout>
@@ -87,17 +95,17 @@ const ContractEditPage: FC = () => {
             <Form.Group>
                 <Form.Label>Фото</Form.Label>
                 <img src={imageUrl ?? image} className="image"/>
-                {id && <Form.Control
+                <Form.Control
                     type="file"
                     accept="image/png, image/jpeg"
                     className="image-upload"
                     onChange={onImageChange}
-                />}
+                />
                 <Form.Label>Название</Form.Label>
                 <Form.Control required
                               value={name} onChange={(e) => setName(e.target.value)}/>
                 <Form.Label>Тип</Form.Label>
-                <Form.Select className="filter-control"
+                <Form.Select className="filter-control contract-edit"
                              onChange={(e) => setType(e.target.value)}>
                     <option disabled>Выберите тип</option>
                     <option value="acquiring">Эквайринг</option>

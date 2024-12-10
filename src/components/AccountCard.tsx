@@ -60,17 +60,19 @@ const AccountCard: FC<Props> = ({
                     <p className="description">создатель</p>
                 </div>}
             </div>
-            <div className="buttons-row">
-                <Link to={`/accounts/${id}`} className="card-button secondary">
+            <div className="buttons-row account-card-buttons">
+                <Link to={`/accounts/${id}`} className="card-button button-secondary">
                     Открыть
                 </Link>
                 {(isModerator && status === 'applied') &&
                     <>
                         <td>
-                            <Link to="#" onClick={() => onChangeStatus(id!, 'rejected')}>Отклонить</Link>
+                            <Link className="card-button button-secondary" to="#"
+                                  onClick={() => onChangeStatus(id!, 'rejected')}>Отклонить</Link>
                         </td>
                         <td>
-                            <Link to="#" onClick={() => onChangeStatus(id!, 'finalized')}>Выполнить</Link>
+                            <Link className="card-button button-secondary" to="#"
+                                  onClick={() => onChangeStatus(id!, 'finalized')}>Выполнить</Link>
                         </td>
                     </>}
             </div>

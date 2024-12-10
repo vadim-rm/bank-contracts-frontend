@@ -1,49 +1,49 @@
-import Layout from "../components/Layout.tsx";
-import {FC, useCallback, useEffect, useState} from "react";
-import {ROUTE_LABELS} from "../Routes.ts";
-import {BreadCrumbs} from "../components/BreadCrumbs.tsx";
+import {FC, useEffect, useState} from "react";
+import Layout from "../components/Layout";
+import {BreadCrumbs} from "../components/BreadCrumbs";
 import {Form, Spinner} from "react-bootstrap";
-import {HandlerGetAccountsListAccount} from "../api/Api.ts";
-import {api} from "../api";
-import "./AccountsPage.css"
-import AccountCard from "../components/AccountCard.tsx";
-import {useIsModerator} from "../slices/user.ts";
+import AccountCard from "../components/AccountCard";
+import {ROUTE_LABELS} from "../Routes";
+import {fetchAccounts, setCreator, setEndDate, setStartDate, setStatus, updateAccountStatus,} from "../slices/accounts";
+import "./AccountsPage.css";
+import {useIsModerator} from "../slices/user";
+import {useAppDispatch} from "../store.ts";
+import {useAccounts} from "../slices/accounts.ts";
 
 const AccountsPage: FC = () => {
-    const isModerator = useIsModerator()
-    const [accounts, setAccounts] = useState<HandlerGetAccountsListAccount[]>([])
-    const [status, setStatus] = useState("any")
-    const [loading, setLoading] = useState(true)
-    const [startDate, setStartDate] = useState<Date | null>(null)
-    const [endDate, setEndDate] = useState<Date | null>(null)
-    const [creator, setCreator] = useState<string>('')
+    const dispatch = useAppDispatch();
+    const isModerator = useIsModerator();
 
-    const load = useCallback(() => {
-        api.accounts.accountsList({
-            status: status === "any" ? undefined : status,
-            from: startDate?.toISOString(),
-            to: endDate?.toISOString(),
-        }).then((response) => {
-            setAccounts(response.data.accounts!)
-        }).finally(() => setLoading(false))
-    }, [endDate, startDate, status])
+    const {accounts, status, loading, startDate, endDate, creator} = useAccounts();
+
+    const [localStartDate, setLocalStartDate] = useState<string>(startDate || "");
+    const [localEndDate, setLocalEndDate] = useState<string>(endDate || "");
 
     useEffect(() => {
-        load()
-        const id = setInterval(load, 2000);
-        return () => clearInterval(id);
-    }, [load])
+        dispatch(fetchAccounts());
+        const interval = setInterval(() => {
+            dispatch(fetchAccounts());
+        }, 2000);
+        return () => clearInterval(interval);
+    }, [dispatch, status, loading, startDate, endDate]);
 
-    const filterAccounts = () => accounts.filter((account) =>
-        account.creator!.toLowerCase().includes(creator.toLowerCase()))
+    const handleStartDateBlur = () => {
+        if (localStartDate !== startDate) {
+            dispatch(setStartDate(localStartDate));
+            dispatch(fetchAccounts());
+        }
+    };
 
-    const changeStatus = (id: number, status: string) => {
-        api.accounts.completeUpdate(id, {
-            status: status
-        }).then(() => {
-            load()
-        })
-    }
+    const handleEndDateBlur = () => {
+        if (localEndDate !== endDate) {
+            dispatch(setEndDate(localEndDate));
+            dispatch(fetchAccounts());
+        }
+    };
+
+    const filteredAccounts = accounts.filter((account) =>
+        account.creator!.toLowerCase().includes(creator.toLowerCase())
+    );
 
     return (
         <Layout>
@@ -51,8 +51,11 @@ const AccountsPage: FC = () => {
             <div className="filters-row">
                 <div className="filter">
                     <p className="filter-label">Статус</p>
-                    <Form.Select className="filter-control"
-                                 onChange={(e) => setStatus(e.target.value)}>
+                    <Form.Select
+                        className="filter-control"
+                        value={status}
+                        onChange={(e) => dispatch(setStatus(e.target.value))}
+                    >
                         <option value="any">Любой</option>
                         <option value="applied">Подана</option>
                         <option value="finalized">Исполнена</option>
@@ -61,31 +64,50 @@ const AccountsPage: FC = () => {
                 </div>
                 <div className="filter">
                     <p className="filter-label">Дата начала</p>
-                    <Form.Control className="filter-control"
-                                  type="date"
-                                  onChange={(e) => setStartDate(new Date(e.target.value))}/>
+                    <Form.Control
+                        className="filter-control"
+                        type="date"
+                        value={localStartDate}
+                        onChange={(e) => setLocalStartDate(e.target.value)}
+                        onBlur={handleStartDateBlur}
+                    />
                 </div>
                 <div className="filter">
                     <p className="filter-label">Дата окончания</p>
-                    <Form.Control className="filter-control"
-                                  type="date"
-                                  onChange={(e) => setEndDate(new Date(e.target.value))}/>
+                    <Form.Control
+                        className="filter-control"
+                        type="date"
+                        value={localEndDate}
+                        onChange={(e) => setLocalEndDate(e.target.value)}
+                        onBlur={handleEndDateBlur}
+                    />
                 </div>
-                {isModerator && <div className="filter">
-                    <p className="filter-label">Создатель</p>
-                    <Form.Control className="filter-control"
-                                  type="input"
-                                  onChange={(e) => setCreator(e.target.value)}/>
-                </div>}
+                {isModerator && (
+                    <div className="filter">
+                        <p className="filter-label">Создатель</p>
+                        <Form.Control
+                            className="filter-control"
+                            type="input"
+                            value={creator}
+                            onChange={(e) => dispatch(setCreator(e.target.value))}
+                        />
+                    </div>
+                )}
             </div>
             {loading && <div className="loadingBg"><Spinner animation="border"/></div>}
             {!loading && accounts.length === 0 && <div>Нет заявок на счета</div>}
-            {!loading && accounts.length > 0 &&
-                filterAccounts().map((account, index) => (
-                    <AccountCard key={index} {...account} onChangeStatus={changeStatus}/>
+            {!loading &&
+                filteredAccounts.map((account, index) => (
+                    <AccountCard
+                        key={index}
+                        {...account}
+                        onChangeStatus={(id, status) =>
+                            dispatch(updateAccountStatus({id, status}))
+                        }
+                    />
                 ))}
         </Layout>
-    )
-}
+    );
+};
 
 export default AccountsPage;
